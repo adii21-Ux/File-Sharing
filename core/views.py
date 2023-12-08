@@ -3,8 +3,10 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth  import authenticate,  login as auth_login, logout
 
+from django.contrib.auth.decorators import login_required
+from .forms import FileUploadForm
+from .models import UploadedFile
 
-# Create your views here.
 def home(request):
     return render(request, 'user/home.html')
 
@@ -21,7 +23,7 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            return redirect('home')
+            return redirect('profile')
         else:
             error_message = "Invalid login credentials. Please try again."
 
@@ -49,3 +51,24 @@ def register(request):
                 error_message = f"An error occurred: {e}"
 
     return render(request, 'auth/register.html', {'error_message': error_message})
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
+@login_required
+def home(request):
+    return render(request, 'user/profile.html')
+
+@login_required
+def file_upload(request):
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploaded_file = form.save(commit=False)
+            uploaded_file.user = request.user
+            uploaded_file.save()
+            return redirect('file_list')
+    else:
+        form = FileUploadForm()
+    return render(request, 'user/file_upload.html', {'form': form})
