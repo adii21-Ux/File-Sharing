@@ -58,9 +58,9 @@ def logout_user(request):
 
 @login_required
 def profile(request):
-    user_files = UploadedFile.objects.filter(user=request.user)
-    return render(request, 'user/profile.html', {'user_files': user_files})
-    # return render(request, 'user/profile.html')
+    username = request.user.username
+    context = {'username': username}
+    return render(request, 'user/profile.html', context)
 
 @login_required
 def file_upload(request):
@@ -81,7 +81,7 @@ def download_file(request, file_id):
     response['Content-Disposition'] = f'attachment; filename="{uploaded_file.file.name}"'
     return response
 
-# @login_required
-# def file_list(request):
-#     user_files = UploadedFile.objects.filter(user=request.user)
-#     return render(request, 'file_list.html', {'user_files': user_files})
+@login_required
+def file_list(request):
+    user_files = UploadedFile.objects.filter(user=request.user)
+    return render(request, 'user/file_list.html', {'user_files': user_files})
