@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'user/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% block title %}
+  Search Profiles - My Site
+{% endblock %}
 
-<body>
-    <h1>Welcom {{ username }}</h1>
-    <button><a href="/logout">Logout</a></button>
-    <button><a href="/upload">Upload Files</a></button>
-    <a href="/files">
-        <h2>Uploaded Files</h2>
-    </a>
-</body>
-
-</html>
+{% block content %}
+  <h1>Welcome {{ username }}</h1>
+  <button><a href="/logout">Logout</a></button>
+  <button><a href="/upload">Upload Files</a></button>
+  <a href="/files"><h2>Uploaded Files</h2></a>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <!-- Add your CSS links for styling here -->
+</head>
+
+<body>
+    <header>
+        <h1>My Site</h1>
+        <form method="get" action="/">
+            <input type="text" name="q" placeholder="Search by username">
+            <input type="submit" value="Search">
+        </form>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <!-- Your footer content here -->
+    </footer>
+</body>
+
+</html>

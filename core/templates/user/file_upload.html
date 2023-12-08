@@ -1,25 +1,19 @@
-<!-- file_upload.html -->
+{% extends 'user/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload</title>
-    <!-- Add your CSS links for styling here -->
-</head>
-<body>
-    <h2>File Upload</h2>
+{% block title %}
+  Search Profiles - My Site
+{% endblock %}
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+{% block content %}
+  <h2>File Upload</h2>
 
-        {{ form.as_p }}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
 
-        <div>
-            <input type="submit" value="Upload">
-        </div>
-    </form>
+    {{ form.as_p }}
 
-</body>
-</html>
+    <div>
+      <input type="submit" value="Upload" />
+    </div>
+  </form>
+{% endblock %}
