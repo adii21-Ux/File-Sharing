@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth  import authenticate,  login as auth_login, logout
-
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import FileUploadForm
 from .models import UploadedFile
@@ -57,8 +57,10 @@ def logout_user(request):
     return redirect('login')
 
 @login_required
-def home(request):
-    return render(request, 'user/profile.html')
+def profile(request):
+    user_files = UploadedFile.objects.filter(user=request.user)
+    return render(request, 'user/profile.html', {'user_files': user_files})
+    # return render(request, 'user/profile.html')
 
 @login_required
 def file_upload(request):
@@ -68,7 +70,18 @@ def file_upload(request):
             uploaded_file = form.save(commit=False)
             uploaded_file.user = request.user
             uploaded_file.save()
-            return redirect('file_list')
+            return redirect('profile')
     else:
         form = FileUploadForm()
     return render(request, 'user/file_upload.html', {'form': form})
+
+def download_file(request, file_id):
+    uploaded_file = UploadedFile.objects.get(pk=file_id)
+    response = HttpResponse(uploaded_file.file, content_type='application/force-download')
+    response['Content-Disposition'] = f'attachment; filename="{uploaded_file.file.name}"'
+    return response
+
+# @login_required
+# def file_list(request):
+#     user_files = UploadedFile.objects.filter(user=request.user)
+#     return render(request, 'file_list.html', {'user_files': user_files})

@@ -2,9 +2,10 @@ from django.urls import path, include
 from .views import *
 urlpatterns = [
     path('', home, name="home"),
-    path('profile', home, name="profile"),
+    path('profile', profile, name="profile"),
     path('login', login, name="login"),
     path('logout', logout_user, name="logout"),
     path('register', register, name="register"),
     path('upload', file_upload, name='file_upload'),
+    path('download/<int:file_id>/', download_file, name='download_file')
 ]
