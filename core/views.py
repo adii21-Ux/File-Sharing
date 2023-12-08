@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import FileUploadForm
 from .models import UploadedFile
+from django.shortcuts import render, get_object_or_404
+
 
 def home(request):
     return render(request, 'user/home.html')
@@ -62,6 +64,10 @@ def profile(request):
     context = {'username': username}
     return render(request, 'user/profile.html', context)
 
+def user_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    return render(request, 'user/user_profile.html', {'profile_user': user})
+
 @login_required
 def file_upload(request):
     if request.method == 'POST':
@@ -85,3 +91,13 @@ def download_file(request, file_id):
 def file_list(request):
     user_files = UploadedFile.objects.filter(user=request.user)
     return render(request, 'user/file_list.html', {'user_files': user_files})
+
+def search_profiles(request):
+    if request.method == 'GET':
+        query = request.GET.get('q', '')
+        results = []
+
+        if query:
+            results = User.objects.filter(username__icontains=query)
+
+    return render(request, 'user/search_users.html', {'query': query, 'results': results})
