@@ -10,5 +10,7 @@ urlpatterns = [
     path('upload', file_upload, name='file_upload'),
     path('files', file_list, name='file_list'),
     path('download/<int:file_id>/', download_file, name='download_file'),
-    path('search', search_profiles, name='search')
+    path('search', search_profiles, name='search'),
+
+    path('share/<int:file_id>/', share_file, name='share_file')
 ]

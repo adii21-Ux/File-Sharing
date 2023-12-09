@@ -1,0 +1,32 @@
+<!-- user/share_file.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share File</title>
+    <!-- Add your CSS links for styling here -->
+</head>
+
+<body>
+    <h1>Share File</h1>
+    <p>Choose recipients to share "{{ file_to_share.file.name }}" with:</p>
+
+    <form method="post" action="">
+        {% csrf_token %}
+
+        {% for user in all_users %}
+            <div>
+                <input type="checkbox" name="recipients" value="{{ user.id }}"> {{ user.username }}
+            </div>
+        {% endfor %}
+
+        <input type="submit" value="Share">
+    </form>
+
+    <p><a href="{% url 'file_list' %}">Back to File List</a></p>
+</body>
+
+</html>
