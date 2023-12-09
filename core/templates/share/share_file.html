@@ -1,32 +1,29 @@
-<!-- user/share_file.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}
+  Share File - My Site
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share File</title>
-    <!-- Add your CSS links for styling here -->
-</head>
-
-<body>
-    <h1>Share File</h1>
+{% block content %}
+  <div style="text-align: center;">
+    <h1 style="color: #007BFF;">Share File</h1>
     <p>Choose recipients to share "{{ file_to_share.file.name }}" with:</p>
 
-    <form method="post" action="">
-        {% csrf_token %}
+    <form method="post" action="" style="margin-bottom: 20px;">
+      {% csrf_token %}
 
-        {% for user in all_users %}
-            <div>
-                <input type="checkbox" name="recipients" value="{{ user.id }}"> {{ user.username }}
-            </div>
-        {% endfor %}
+      {% for user in all_users %}
+        <div style="margin-bottom: 10px;">
+          <input type="checkbox" name="recipients" value="{{ user.id }}" id="user_{{ user.id }}" />
+          <label for="user_{{ user.id }}">{{ user.username }}</label>
+        </div>
+      {% endfor %}
 
-        <input type="submit" value="Share">
+      <input type="submit" value="Share" style="padding: 10px; background-color: #007BFF; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
     </form>
 
-    <p><a href="{% url 'file_list' %}">Back to File List</a></p>
-</body>
-
-</html>
+    <p>
+      <a href="{% url 'file_list' %}" style="color: #007BFF;">Back to File List</a>
+    </p>
+  </div>
+{% endblock %}

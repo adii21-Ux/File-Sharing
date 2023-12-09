@@ -1,0 +1,137 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        My Site
+      {% endblock %}
+    </title>
+
+    {% block css %}
+
+    {% endblock %}
+    <!-- Add your CSS links for styling here -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      header {
+        color: #000;
+        padding: 10px;
+        text-align: center;
+      }
+      
+      h1 {
+        margin: 0;
+      }
+      
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+      }
+      
+      input[type='text'] {
+        padding: 8px;
+        margin-right: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+      
+      input[type='submit']:hover {
+        background-color: #004080;
+      }
+      
+      main {
+        margin: 20px;
+        text-align: center; /* Center the content within the main section */
+      }
+      .search {
+        background-color: #3498db; /* Button background color */
+        color: #ffffff; /* Button text color */
+        padding: 10px 20px; /* Padding inside the button */
+        font-size: 16px; /* Font size of the button text */
+        border: none; /* Remove button border */
+        border-radius: 5px; /* Add border-radius for rounded corners */
+        cursor: pointer; /* Change cursor to pointer on hover */
+        transition: background-color 0.3s ease; /* Smooth transition for background color change */
+      
+        /* Hover styles */
+        &:hover {
+          background-color: #2980b9; /* Change background color on hover */
+        }
+      
+        /* Additional styles for focus (when button is selected) */
+        &:focus {
+          outline: none; /* Remove default focus outline */
+          box-shadow: 0 0 5px rgba(52, 152, 219, 0.7); /* Add box shadow on focus */
+        }
+      }
+      
+      .logout {
+        background-color: #3498db;
+        color: #ffffff;
+        position: absolute;
+        left: 90%;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      
+      .logout:hover {
+        background-color: #2980b9;
+      }
+      
+      .logout:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.7);
+      }
+      
+      /* Move the logout button to the right */
+      .logout:last-child {
+        margin-left: auto;
+      }
+      a{
+        text-decoration: none;
+        color: inherit;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <a href="/">
+          <h1>My Site</h1>
+      </a>
+      <button class="styled-button logout"><a href="/logout">Logout</a></button>
+      <form method="get" action="/search">
+        <input type="text" name="q" placeholder="Search by username" class="ip-search" />
+        <button type="submit" class="search">Search</button>
+      </form>
+    </header>
+
+    <main>
+      {% block content %}
+
+      {% endblock %}
+    </main>
+
+    <footer>
+      <!-- Your footer content here -->
+    </footer>
+  </body>
+</html>

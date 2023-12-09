@@ -1,9 +1,29 @@
-{% extends 'user/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
-  Search Profiles - My Site
+  {{ profile_user.username }}'s Profile - My Site
 {% endblock %}
 
 {% block content %}
-  <h1>{{ profile_user.username }}'s Profile</h1>
+  <div style="text-align: center; margin-top: 20px;">
+    <h1 style="color: #007BFF;">{{ profile_user.username }}'s Profile</h1>
+
+    <div style="margin-top: 20px;">
+      <strong>First Name:</strong> {{ profile_user.first_name }}
+    </div>
+
+    <div style="margin-top: 10px;">
+      <strong>Last Name:</strong> {{ profile_user.last_name }}
+    </div>
+
+    <div style="margin-top: 10px;">
+      <strong>Email:</strong> {{ profile_user.email }}
+    </div>
+
+    <!-- Add more information as needed -->
+
+    <p style="margin-top: 20px;">
+      <a href="{% url 'file_list' %}" style="color: #007BFF;">Back to File List</a>
+    </p>
+  </div>
 {% endblock %}

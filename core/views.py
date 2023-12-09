@@ -10,7 +10,9 @@ from django.shortcuts import render, get_object_or_404
 
 
 def home(request):
-    return render(request, 'user/home.html')
+    if request.user.is_authenticated:
+        return redirect('profile')
+    return render(request, 'home.html')
 
 
 def login(request):
@@ -38,6 +40,9 @@ def register(request):
 
     if request.method == "POST":
         # Get the post parameters
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
         username = request.POST['uname']
         pass1 = request.POST['password']
         pass2 = request.POST['confirm_password']
@@ -49,7 +54,7 @@ def register(request):
             # Create the user
             try:
                 myuser = User.objects.create_user(
-                    username=username, password=pass1)
+                    username=username, password=pass1, email=email, first_name=first_name, last_name=last_name)
                 myuser.save()
                 return redirect('login')
             except Exception as e:
@@ -86,7 +91,7 @@ def file_upload(request):
             return redirect('profile')
     else:
         form = FileUploadForm()
-    return render(request, 'user/file_upload.html', {'form': form})
+    return render(request, 'files/file_upload.html', {'form': form})
 
 
 def download_file(request, file_id):
@@ -100,8 +105,9 @@ def download_file(request, file_id):
 @login_required
 def file_list(request):
     user_files = UploadedFile.objects.filter(user=request.user)
-    shared_with_user_files = UploadedFile.objects.filter(shared_with=request.user)
-    return render(request, 'user/file_list.html', {'user_files': user_files, 'shared_with_user_files': shared_with_user_files})
+    shared_with_user_files = UploadedFile.objects.filter(
+        shared_with=request.user)
+    return render(request, 'files/file_list.html', {'user_files': user_files, 'shared_with_user_files': shared_with_user_files})
 
 
 def search_profiles(request):

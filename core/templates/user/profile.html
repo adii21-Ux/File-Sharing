@@ -1,12 +1,16 @@
-{% extends 'user/base.html' %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
   Search Profiles - My Site
 {% endblock %}
 
+{% block css %}
+  <link rel="stylesheet" href={% static 'profile.css' %}>
+{% endblock %}
+
 {% block content %}
-  <h1>Welcome {{ username }}</h1>
-  <button><a href="/logout">Logout</a></button>
-  <button><a href="/upload">Upload Files</a></button>
-  <a href="/files"><h2>Uploaded Files</h2></a>
+  <h1 class="head">Welcome {{ username }}</h1>
+  <button class="search"><a href="/upload">Upload Files</a></button>
+  <a href="/files"><h2>View Your Files</h2></a>
 {% endblock %}
