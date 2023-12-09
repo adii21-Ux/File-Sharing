@@ -19,3 +19,10 @@ a{
     text-decoration: none;
     color: inherit;
 }
+
+.files{
+    display: block;
+    width: 15%;
+    margin: auto;
+    margin-top: 15px;
+}

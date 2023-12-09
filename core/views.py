@@ -12,7 +12,7 @@ from django.shortcuts import render, get_object_or_404
 def home(request):
     if request.user.is_authenticated:
         return redirect('profile')
-    return render(request, 'home.html')
+    return render(request, 'user/home.html')
 
 
 def login(request):
